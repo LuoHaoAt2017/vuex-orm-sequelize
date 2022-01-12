@@ -1,5 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    博主有文章
+    文章有评论
+    评论有回复
+    回复有回复
   </div>
 </template>

@@ -31,6 +31,15 @@ const Post = sequelize.define("Post", {
     allowNull: false,
     defaultValue: "",
   },
+  category: {
+    type: DataTypes.INTEGER,
+    validate: {
+      min: 0,
+      max: 5
+    },
+    allowNull: false,
+    defaultValue: 0
+  }
 });
 
 // 用户
@@ -48,7 +57,7 @@ const User = sequelize.define("User", {
   },
   avatar: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     defaultValue: "",
   },
 });
@@ -65,20 +74,6 @@ const Comment = sequelize.define("Comment", {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: "",
-  },
-});
-
-// 点赞()
-const Like = sequelize.define("Like", {
-  id: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    primaryKey: true,
-    defaultValue: UUIDV4,
-  },
-  status: {
-    type: DataTypes.BOOLEAN,
-    allowNull: true,
   },
 });
 
@@ -100,10 +95,21 @@ User.hasMany(Post, {
   foreignKey: "author_id",
   as: "posts",
 });
+
 Post.belongsTo(User, {
   foreignKey: "author_id",
   as: "author",
 });
+
+// 一位用户可以收藏多篇帖子，一篇帖子可以被多位用户收藏
+// User.belongsToMany(Post, {
+//   through: "Favorites",
+//   as: "collects",
+// });
+// Post.belongsToMany(User, {
+//   through: "Favorites",
+//   as: "owners",
+// });
 
 // 一篇帖子可以拥有多条评论，一条评论只属于一篇帖子。
 Post.hasMany(Comment, {
@@ -115,42 +121,30 @@ Comment.belongsTo(Post, {
   as: "post",
 });
 
-// 一位观众可以发表多条评论，一条评论只能由一位观众发表。
-User.hasMany(Comment, {
-  foreignKey: "commentator_id",
-  as: "comments",
-});
-Comment.belongsTo(User, {
-  foreignKey: "commentator_id",
-  as: "commentator",
-});
-
 // 一位博主可以订阅多位博主， 一位博主可以被多位博主订阅
-User.belongsToMany(User, {
-  through: "subscrib",
-  as: "subscribers",
-});
-User.belongsToMany(User, {
-  through: "subscrib",
-  as: "publishers",
-});
+// User.hasMany(User, {
+//   through: "Subscrib",
+//   as: "subscribers",
+// });
 
-// 一位用户可以收藏多篇帖子，一篇帖子可以被多位用户收藏
-User.belongsToMany(Post, {
-  through: "favorites",
-  as: "collects",
-});
-Post.belongsToMany(User, {
-  through: "favorites",
-  as: "owners",
-});
+// Comment.hasMany(Comment, {
+//   through: "CommentReply",
+//   as: "replies",
+// });
 
-module.exports = async function connect() {
+async function connect() {
   try {
     await sequelize.authenticate();
-    // await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
 };
+
+module.exports = {
+  connect,
+  Post,
+  User,
+  Comment
+}

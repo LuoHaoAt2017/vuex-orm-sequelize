@@ -4,12 +4,6 @@
       <a-list-item slot="renderItem" slot-scope="item, index">
         <a-card hoverable style="width: 100%">
           <a-card-meta>
-            <a-avatar
-              slot="avatar"
-              :size="64"
-              shape="circle"
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
             <div slot="title">Card title</div>
             <div slot="description">This is the description</div>
           </a-card-meta>
@@ -22,6 +16,20 @@
             <a-icon key="bell" type="bell" />
             <a-icon key="ellipsis" type="ellipsis" />
           </template>
+
+          <a-comment>
+            <span slot="actions" key="comment-nested-reply-to">Reply to</span>
+            <a slot="author">Han Solo</a>
+            <a-avatar
+              slot="avatar"
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              alt="Han Solo"
+            />
+            <p slot="content">
+              We supply a series of design principles, practical patterns and
+              high quality design resources (Sketch and Axure).
+            </p>
+          </a-comment>
         </a-card>
       </a-list-item>
     </a-list>
@@ -36,7 +44,7 @@ export default {
   data() {
     return {
       list: [],
-      submitting: false
+      submitting: false,
     };
   },
   created() {
@@ -46,10 +54,8 @@ export default {
   },
   mounted() {},
   methods: {
-    handleSubmit() {
-
-    }
-  }
+    handleSubmit() {},
+  },
 };
 </script>
 <style lang="less">
