@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       list: [],
+      submitting: false
     };
   },
   created() {
@@ -44,6 +45,11 @@ export default {
     }));
   },
   mounted() {},
+  methods: {
+    handleSubmit() {
+
+    }
+  }
 };
 </script>
 <style lang="less">

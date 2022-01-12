@@ -1,4 +1,4 @@
-import { Router } from 'express';
+const { Router } = require('express');
 
 const router = Router();
 
@@ -21,3 +21,5 @@ router.put('/comment', function(req, res) {
 router.put('/dislike', function(req, res) {
   res.status(200).send("hello world");
 });
+
+module.exports = router;
