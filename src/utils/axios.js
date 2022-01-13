@@ -14,8 +14,7 @@ instance.interceptors.request.use(function(req) {
 instance.interceptors.response.use(function(res) {
   return res.data;
 }, function(error) {
-  debugger
-  return Promise.reject(error);
+  return Promise.reject(error.stack);
 });
 
 export default instance;

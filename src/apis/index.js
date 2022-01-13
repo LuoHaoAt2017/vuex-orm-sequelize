@@ -37,11 +37,41 @@ export function UpdatePost(params) {
   });
 }
 
-export function AddComment(params) {
+// comment
+export function SearchComment(postId) {
+  return axios.request({
+    url: `/comments/${postId}`,
+    method: 'GET',
+  });
+}
+
+export function CreateComment(params) {
   return axios.request({
     url: '/comment',
     method: 'PUT',
     data: params
+  });
+}
+
+export function ReplyComment(params) {
+  return axios.request({
+    url: '/reply',
+    method: 'PUT',
+    data: params
+  });
+}
+
+export function SearchReply(commentId) {
+  return axios.request({
+    url: `/replies/${commentId}`,
+    method: 'GET',
+  });
+}
+
+export function DeleteReply(commentId) {
+  return axios.request({
+    url: `/reply/${commentId}`,
+    method: 'DELETE',
   });
 }
 

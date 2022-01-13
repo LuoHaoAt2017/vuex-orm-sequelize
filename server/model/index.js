@@ -112,6 +112,7 @@ Post.belongsTo(User, {
 // });
 
 // 一篇帖子可以拥有多条评论，一条评论只属于一篇帖子。
+// 在为 hasMany 定义别名时,应使用复数形式
 Post.hasMany(Comment, {
   foreignKey: "commentator_id",
   as: "comments",
@@ -126,11 +127,11 @@ Comment.belongsTo(Post, {
 //   through: "Subscrib",
 //   as: "subscribers",
 // });
-
-// Comment.hasMany(Comment, {
-//   through: "CommentReply",
-//   as: "replies",
-// });
+// 在为 belongsToMany 定义别名时,应使用复数形式
+Comment.belongsToMany(Comment, {
+  through: "Reply",
+  as: 'messages'
+});
 
 async function connect() {
   try {

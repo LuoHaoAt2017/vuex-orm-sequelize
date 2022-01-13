@@ -85,10 +85,14 @@ router.put("/post", Controller.createPost);
 router.delete("/post/:id", Controller.deletePost);
 router.post("/post", Controller.updatePost);
 
-router.get("/comments", Controller.searchComment);
+router.get("/comments/:postId", Controller.searchComment);
 router.put("/comment", Controller.createComment);
 router.delete("/comment", Controller.deleteComment);
 router.post("/comment", Controller.updateComment);
+
+router.put("/reply", Controller.createReply);
+router.get("/replies/:commentId", Controller.searchReply);
+router.delete("/reply/:commentId", Controller.deleteReply);
 
 router.get("/users", Controller.searchUser);
 router.put("/user", Controller.createUser);

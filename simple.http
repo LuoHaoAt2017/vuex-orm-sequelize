@@ -6,3 +6,11 @@ Content-Type: application/json
   "name": "tom",
   "avatar": ""
 }
+
+###
+GET http://localhost:7001/replies/2e016914-58e0-4ddb-b5a7-21d3d431f0c9
+Content-Type: application/json
+
+###
+DELETE http://localhost:7001/reply/
+Content-Type: application/json
