@@ -3,6 +3,6 @@ PUT http://localhost:7001/register
 Content-Type: application/json
 
 {
-  "name": "tomcat",
+  "name": "tom",
   "avatar": ""
 }

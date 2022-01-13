@@ -27,7 +27,7 @@ const Post = sequelize.define("Post", {
     defaultValue: "",
   },
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
     defaultValue: "",
   },
@@ -71,7 +71,7 @@ const Comment = sequelize.define("Comment", {
     defaultValue: UUIDV4,
   },
   message: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
     defaultValue: "",
   },

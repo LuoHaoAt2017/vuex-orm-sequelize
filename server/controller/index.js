@@ -1,13 +1,32 @@
 const { Post, User, Comment } = require('../model');
 const formatResponse = require("../utils/index");
+
+// login
+const login = async function(req, res) {
+  try {
+    const username = req.body.name;
+    const user = await User.findOne({
+      where: {
+        name: username
+      }
+    });
+    res.status(200).send(formatResponse(user));
+  } catch (err) {
+    res.status(500).send(formatResponse(null, err));
+  }
+}
+
 // post
 const createPost = async function(req, res) {
   try {
+    const author = req.body.author;
+    const user = await User.findByPk(author);
     const post = await Post.create({
       title: req.body.title,
       content: req.body.content,
       category: req.body.category
     });
+    await user.addPost(post);
     res.status(200).send(formatResponse(post));
   } catch (err) {
     res.status(500).send(formatResponse(null, err));
@@ -16,7 +35,7 @@ const createPost = async function(req, res) {
 
 const deletePost = async function(req, res) {
   try {
-    const postId = req.params.postId;
+    const postId = req.params.id;
     const post = await Post.findByPk(postId);
     const data = await post.destroy();
     res.status(200).send(formatResponse(data));
@@ -27,7 +46,7 @@ const deletePost = async function(req, res) {
 
 const updatePost = async function(req, res) {
   try {
-    const postId = req.body.postId;
+    const postId = req.body.id;
     const post = await Post.findByPk(postId);
     post.title = req.body.title;
     post.content = req.body.content;
@@ -43,6 +62,16 @@ const searchPost = async function(req, res) {
   try {
     const posts = await Post.findAll();
     res.status(200).send(formatResponse(posts));
+  } catch(err) {
+    res.status(500).send(formatResponse(null, err));
+  }
+}
+
+const queryPost = async function(req, res) {
+  try {
+    const postId = req.params.id;
+    const post = await Post.findByPk(postId);
+    res.status(200).send(formatResponse(post));
   } catch(err) {
     res.status(500).send(formatResponse(null, err));
   }
@@ -143,6 +172,7 @@ module.exports = {
   deletePost,
   updatePost,
   searchPost,
+  queryPost,
   createComment,
   deleteComment,
   updateComment,
@@ -150,5 +180,6 @@ module.exports = {
   createUser,
   deleteUser,
   updateUser,
-  searchUser
+  searchUser,
+  login
 }

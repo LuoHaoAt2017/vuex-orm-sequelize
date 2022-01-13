@@ -1,15 +1,21 @@
-// import axios from '../utils/axios';
-import axios from "axios";
+import axios from '../utils/axios';
 
 export function SearchPost() {
-  return axios.create({
+  return axios.request({
     url: '/posts',
-    method: 'GET'
+    method: 'GET',
+  });
+}
+
+export function QueryPost(postId) {
+  return axios.request({
+    url: `/post/${postId}`,
+    method: 'GET',
   });
 }
 
 export function CreatePost(params) {
-  return axios.create({
+  return axios.request({
     url: '/post',
     method: 'PUT',
     data: params
@@ -17,15 +23,14 @@ export function CreatePost(params) {
 }
 
 export function DeletePost(params) {
-  return axios.create({
-    url: '/post',
+  return axios.request({
+    url: `/post/${params}`,
     method: 'DELETE',
-    data: params
   });
 }
 
 export function UpdatePost(params) {
-  return axios.create({
+  return axios.request({
     url: '/post',
     method: 'POST',
     data: params
@@ -33,7 +38,7 @@ export function UpdatePost(params) {
 }
 
 export function AddComment(params) {
-  return axios.create({
+  return axios.request({
     url: '/comment',
     method: 'PUT',
     data: params
@@ -41,7 +46,7 @@ export function AddComment(params) {
 }
 
 export function AddSubscribe(params) {
-  return axios.create({
+  return axios.request({
     url: '/subscribe',
     method: 'PUT',
     data: params
@@ -49,7 +54,7 @@ export function AddSubscribe(params) {
 }
 
 export function CancelSubscribe(params) {
-  return axios.create({
+  return axios.request({
     url: '/subscribe',
     method: 'DELETE',
     data: params
